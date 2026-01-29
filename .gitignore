@@ -1,0 +1,88 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+*.egg-info/
+dist/
+build/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+.npm/
+package-lock.json
+yarn.lock
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.code-workspace
+
+# Rust
+target/
+Cargo.lock
+*.rlib
+
+# Java/Android
+*.class
+*.jar
+*.apk
+build/
+.gradle/
+
+# C/C++
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+cmake-build-debug/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Data & Models
+*.pkl
+*.h5
+*.pth
+*.onnx
+*.bin
+data/
+models/
+
+# Build outputs
+dist/
+build/
+*.tar.gz
+*.zip
+
+# Logs
+logs/
+*.log
+
+# Docker
+docker-compose.override.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+*.db
+*.sqlite

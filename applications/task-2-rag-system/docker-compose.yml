@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  # Backend API
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    container_name: rag-backend
+    ports:
+      - "8000:8000"
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      PINECONE_API_KEY: ${PINECONE_API_KEY}
+      PINECONE_ENVIRONMENT: ${PINECONE_ENVIRONMENT:-gcp-starter}
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/rag
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app
+    networks:
+      - rag-network
+
+  # Frontend
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+    container_name: rag-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_API_URL: http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - rag-network
+
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: rag-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: rag
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - rag-network
+
+  # Pinecone Vector DB (optional - use managed service)
+  # For local testing, consider using Milvus or Weaviate instead
+  
+volumes:
+  postgres_data:
+
+networks:
+  rag-network:
+    driver: bridge
